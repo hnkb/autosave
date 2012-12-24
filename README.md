@@ -49,8 +49,8 @@ normal forms in a single page.
 
 You can add an element (`span`, `div`, `p`) with `class="AutosaveMessages"` to your forms. This element will
 display autosave status (or error) messages. The code will attach `class="Pending"` to this element
-when a request is pending and attach `class="Error"` if a request has failed. You can customize your
-CSS styles for these classes.
+when a request is pending. You can customize your CSS styles for this (display an ajax loading GIF animation
+for example).
 
 This script automatically sends user data to server every 2 seconds. If you want your users to issue
 saves immediately, you can put a Save button on your form (this can be a `button`, `input`, `a`) with
@@ -60,35 +60,37 @@ background).
 
 If you want to hide all messages and buttons when form is up-to-date, you can put all these elements in
 a container element with `class="AutosavePopup"`. This element will be shown or hidden as necessary by
-this script.
+this script. This element will receive `class="Error"` if a any request has failed (this will be cleared
+if subsequent requests succeed).
 
 So a complete form footer would look something like this:
-
-    <p class="AutosavePopup">
-        <span class="AutosaveMessages"></span>
-        <a href="#" class="Save" style="display:none">Save</a>
-        <input type="submit" value="Save without Ajax" />
-    </p>
+```html
+<p class="AutosavePopup">
+    <span class="AutosaveMessages"></span>
+    <a href="#" class="Save" style="display:none">Save</a>
+    <input type="submit" value="Save without Ajax" />
+</p>
+```
 
 This script acts unobstrusively but has one glitch. It reads original form values at page load. If user
 changes form values before the page is fully loaded and script is run, these changes would not be "seen"
 by the script. To fix this problem unobstrusively, you shall disable forms with a small JavaScript snippet
 before any input is displayed, and enable it after `autsave.js` is loaded. Like this:
+```html
+<div id="load-wait"
+     style="position: fixed; z-index: 100; left: 0; right: 0; top: 0; bottom: 0;
+            background: rgba(0,0,0,.6);
+            display: none">
+</div>
+<script>$('#load-wait').show();</script>
 
-    <div id="load-wait"
-         style="position: fixed; z-index: 100; left: 0; right: 0; top: 0; bottom: 0;
-                background: rgba(0,0,0,.6);
-                display: none">
-    </div>
-    <script>$('#load-wait').show();</script>
-    
-    <form class="Autosave">
-        <!-- your actual fields -->
-        <!-- your autosave popup including Save button, per above example -->
-    </form>
-    <script type="text/javascript" src="autosave.js"></script>
-    <script type="text/javascript">$('#load-wait').fadeOut();</script>
-
+<form class="Autosave">
+    <!-- your actual fields -->
+    <!-- your autosave popup including Save button, per above example -->
+</form>
+<script type="text/javascript" src="autosave.js"></script>
+<script type="text/javascript">$('#load-wait').fadeOut();</script>
+```
 
 ## Known issues
 
