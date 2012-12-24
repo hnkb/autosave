@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="style.css" />
+    <script type="text/ecmascript" src="jquery-1.8.3.min.js"></script>
+    <title>autocomplete demo</title>
+</head>
+<body>
+    <div id="load-wait" style="position:fixed;left:0;right:0;top:0;bottom:0;background:rgba(0,0,0,.6);display:none"></div>
+    <script type="text/javascript">$('#load-wait').show();</script>
+
+    <form class="Autosave" method="post" action="test.php">
+        <p><input type="text" name="Name" placeholder="Name" /></p>
+        <p>
+            <label><input type="radio" name="Gender" value="Female" /> Female</label>
+            <label><input type="radio" name="Gender" value="Male" /> Male</label>
+        </p>
+        <p><textarea name="Bio" placeholder="Biography"></textarea></p>
+
+        <p class="AutosavePopup">
+		    <span class="AutosaveMessages"></span>
+		    <a href="#" class="Save" style="display:none">Save</a>
+		    <input type="submit" value="Save without ajax" />
+	    </p>
+    </form>
+    
+    <script type="text/javascript" src="../autosave.js"></script>
+    <script type="text/javascript">$('#load-wait').fadeOut();</script>
+</body>
+</html>

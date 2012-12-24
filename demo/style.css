@@ -1,0 +1,53 @@
+﻿
+body, input, textarea {
+    font-family: 'Segoe UI', Verdana, Tahoma, sans-serif;
+    font-size: 13px;
+}
+
+.AutosavePopup {
+    position: fixed;
+    bottom: 0em;
+    left: 0em;
+    right: 0em;
+    margin: 0;
+    padding: .5em;
+    background: #fd8;
+    color: #999;
+    font-size: 12px;
+    line-height: 16px;
+    height: 16px;
+    overflow: hidden;
+}
+    .AutosavePopup.Error {
+        background: #d54;
+        color: #fd8;
+    }
+
+    .AutosavePopup .Save, .AutosavePopup input[type=submit] {
+        border: none;
+        background: none;
+        cursor: pointer;
+        text-decoration: none;
+        padding: 0;
+        margin: 0 1em 0 0;
+        float: right;
+        font-size: 12px;
+        line-height: 16px;
+        vertical-align: top;
+        color: #000;
+    }
+        .AutosavePopup .Save:hover, .AutosavePopup input[type=submit]:hover {
+            text-decoration: underline;
+        }
+    .AutosavePopup.Error .Save, .AutosavePopup.Error input[type=submit] {
+        color: #fff;
+    }
+
+.AutosaveMessages {
+    display: inline-block;
+    min-height: 16px;
+    padding-left: 22px;
+}
+    .AutosaveMessages.Pending {
+        background: url(ajax-loader.gif) no-repeat center left;
+    }
