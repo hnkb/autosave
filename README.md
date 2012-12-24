@@ -1,7 +1,7 @@
 autosave
 ========
 
-A JavaScript library that automatically saves HTML forms in the background. This library uses *jQuery*.
+A JavaScript library that automatically saves HTML forms in the background. This library uses **jQuery**.
 It is unobstrusive, if JavaScript is not enabled on client browser the form will act like a normal
 HTML form.
 
@@ -63,6 +63,7 @@ a container element with `class="AutosavePopup"`. This element will be shown or 
 this script.
 
 So a complete form footer would look something like this:
+
     <p class="AutosavePopup">
         <span class="AutosaveMessages"></span>
         <a href="#" class="Save" style="display:none">Save</a>
@@ -73,9 +74,11 @@ This script acts unobstrusively but has one glitch. It reads original form value
 changes form values before the page is fully loaded and script is run, these changes would not be "seen"
 by the script. To fix this problem unobstrusively, you shall disable forms with a small JavaScript snippet
 before any input is displayed, and enable it after `autsave.js` is loaded. Like this:
-    <div
-        id="load-wait"
-        style="position: fixed; left: 0; right: 0; top: 0; bottom: 0; background: rgba(0,0,0,.6); display: none">
+
+    <div id="load-wait"
+         style="position: fixed; z-index: 100; left: 0; right: 0; top: 0; bottom: 0;
+                background: rgba(0,0,0,.6);
+                display: none">
     </div>
     <script>$('#load-wait').show();</script>
     
