@@ -1,4 +1,3 @@
-
 // Requires jQuery
 
 (function () {
@@ -76,9 +75,7 @@
             if (this.autosaveXHR && this.autosaveXHR.readyState != 4) {
                 // an earlier update is pending, so don't update again
                 // but remember to update as soon as this one finished
-
-                // we can also abort any pending update and send request again
-                //$(this).find('.AutosaveMessages').text('درخواست ذخیره‌ی دیگری در حال انجام است');
+                // we can also abort any pending update and send a new request
                 return;
             }
 
@@ -90,25 +87,25 @@
                 diff.Timestamp = new Date().getTime();
                 //window.alert(JSON.stringify(diff));
 
-                $('.AutosavePopup').slideDown();//.removeClass('Error');
+                $('.AutosavePopup').slideDown();//.removeClass('Error'); /* clearing error class makes popup flash */
                 $(form).find('.AutosaveMessages').text('در حال ذخیره کردن تغییرات...').addClass('Pending');
 
                 form.autosaveXHR = $.post($(this).attr('action'), $.param(diff), function (data, textStatus, jqXHR) {
                     //window.alert(JSON.stringify(data));
                     //if (form.autosaveXHR == jqXHR) delete form.autosaveXHR;
-  				if (!form.lastAutosaveTimestamp || form.lastAutosaveTimestamp < diff.Timestamp) {
-						form.lastAutosaveTimestamp = diff.Timestamp;
-						form.lastSavedValues = currentValues;
-						if (!hasUnsavedChanges(form)) {
-							$(form).find('.AutosaveMessages').text('').removeClass('Pending');
-							$(form).find('input:submit').fadeOut();
-							hideSaveButtons();
-						} else {
-							registerAutosaveTimeout();
-						}
-					}/* else {
-						// another more recent request has already been received, throw this one away
-					}*/
+                    if (!form.lastAutosaveTimestamp || form.lastAutosaveTimestamp < diff.Timestamp) {
+                        form.lastAutosaveTimestamp = diff.Timestamp;
+                        form.lastSavedValues = currentValues;
+                        if (!hasUnsavedChanges(form)) {
+                            $(form).find('.AutosaveMessages').text('').removeClass('Pending');
+                            $(form).find('input:submit').fadeOut();
+                            hideSaveButtons();
+                        } else {
+                            registerAutosaveTimeout();
+                        }
+                    }/* else {
+                        // another more recent request has already been received, throw this one away
+                    }*/
                 });
             } else {
                 $(this).find('input:submit').fadeOut();
@@ -126,6 +123,7 @@
             autosaveTimeout = null;
             AjaxSave();
         }, 2000);
+        // allow customizing this value, or completely disabling timed-out autosave, but retain Ajax save functionality
     }
 
     $('form[method=post]').each(function () { if (!this.lastSavedValues) this.lastSavedValues = getSerializedArray(this); });
